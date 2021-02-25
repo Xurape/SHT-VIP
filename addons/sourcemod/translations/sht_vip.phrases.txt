@@ -1,0 +1,246 @@
+"Phrases"
+{
+
+    ////////////////////////
+    /////              /////
+    ////                ////
+    //                    //
+    //    Menu Options    //
+    //                    //  
+    ///                  ///
+    ////                ////
+    ////////////////////////
+
+    // SKILLS
+
+    "menuvip_titulo"
+    {
+        "#format"       "{1:s}"
+        "en"			"≡ VIP Menu\n★ Welcome {1}"
+        "pt"			"≡ VIP Menu\n★ Bem-vindo {1}"
+    }
+
+    "habilidades"
+    {
+        "en"			"⮞ Skills"
+        "pt"			"⮞ Habilidades"
+    }
+
+    "informacoes"
+    {
+        "en"			"⮞ Informations"
+        "pt"			"⮞ Informações"
+    }
+
+    "definicoes"
+    {
+        "en"			"⮞ Options"
+        "pt"			"⮞ Definições"
+    }
+
+    "viprespawn"
+    {
+        "en"			"⮞ VIP Respawn [+]"
+        "pt"			"⮞ VIP Respawn [+]"
+    }
+
+    "viprespawn_enable"
+    {
+        "en"			"⮞ VIP Respawn [-]"
+        "pt"			"⮞ VIP Respawn [-]"
+    }
+    
+    "multijump"
+    {
+        "en"			"⮞ MultiJump"
+        "pt"			"⮞ MultiJump"
+    }
+    
+    "granada_wallhack"
+    {
+        "en"			"⮞ Wallhack grenade"
+        "pt"			"⮞ Granada de Wallhack"
+    }
+    
+    "granada_impulso"
+    {
+        "en"			"⮞ Impulse grenade"
+        "pt"			"⮞ Granada de impulso"
+    }
+    
+    "granada_teleport"
+    {
+        "en"			"⮞ Teleport grenade"
+        "pt"			"⮞ Granada de teleporte"
+    }
+    
+    "seringa_regen"
+    {
+        "en"			"⮞ Regeneration syringe"
+        "pt"			"⮞ Seringa de regeneração"
+    }
+
+    // INFO
+    
+    "menuvip_titulo_informacoes"
+    {
+        "#format"       "{1:s}"
+        "en"			"≡ VIP Menu [Info]\n★ Welcome {1}"
+        "pt"			"≡ VIP Menu [Informações]\n★ Bem-vindo {1}"
+    }
+
+    "linha1"
+    {
+        "en"			"⮞ The VIP/Sponsor it's instantly enabled after the purchase"
+        "pt"			"⮞ O VIP/Sponsor é ativo instantâneamente assim que o compras"
+    }
+
+    "linha2"
+    {
+        "en"			"⮞ The VIP/Sposnor it's only enabled after the payment, without exceptions"
+        "pt"			"⮞ O VIP/Sponsor apenas é ativo após o seu pagamento, sem excessões"
+    }
+    
+    "linha3"
+    {
+        "en"			"⮞ If you didn't like to use the VIP/Sponsor, you should know that:\n- We don't refund\n- We don't trade\n- We don't exchange the VIP/Sponsor between accounts on bans\n- The VIP/Sponsor isn't imune to a ban"
+        "pt"			"⮞ Caso não tenhas gostado de usufruir do VIP/Sponsor, necessitas de saber que:\n- Não efetuamos devoluções\n- Não efetuamos trocas\n- Não movemos o VIP/Sponsor de conta em caso de banimento\n- O VIP/Sponsor não está isento a banimentos"
+    }
+    
+    "linha4"
+    {
+        "en"			"⮞ Price:\nVIP 1 - 5.00€\nVIP 2 - 10.00€"
+        "pt"			"⮞ Preço:\nVIP 1 - 5.00€\nVIP 2 - 10.00€"
+    }
+    
+    "linha5"
+    {
+        "en"			"⮞ Duration:\nVIP 1 - 1 month\nVIP 2 - Perma"
+        "pt"			"⮞ Duração:\nVIP 1 - 1 month\nVIP 2 - Perma"
+    }
+
+    ////////////////////////
+    /////              /////
+    ////                ////
+    //                    //
+    //    Skill Names     //
+    //                    //  
+    ///                  ///
+    ////                ////
+    ////////////////////////
+
+    "s_viprespawn"
+    {
+        "en"			"VIP Respawn"
+        "pt"			"VIP Respawn"
+    }
+    
+    "s_multijump"
+    {
+        "en"			"MultiJump"
+        "pt"			"MultiJump"
+    }
+    
+    "s_granada_wallhack"
+    {
+        "en"			"Wallhack grenade"
+        "pt"			"Granada de Wallhack"
+    }
+    
+    "s_granada_impulso"
+    {
+        "en"			"Bump grenade"
+        "pt"			"Granada de impulso"
+    }
+    
+    "s_granada_teleport"
+    {
+        "en"			"Teleport grenade"
+        "pt"			"Granada de teleporte"
+    }
+    
+    "s_seringa_regen"
+    {
+        "en"			"Regeneration syringe"
+        "pt"			"Seringa de regeneração"
+    }
+
+
+    ////////////////////////
+    /////              /////
+    ////                ////
+    //                    //
+    //      Chat/Hud      //
+    //      Messages      //
+    //                    //  
+    ///                  ///
+    ////                ////
+    ////////////////////////
+
+    "VIPRespawn_Ativo"
+    {
+        "en"			"{default}[ {darkred}SHT_VIP {default}] You have enabled your VIP respawn. You'll respawn when you die!"
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] Ativas-te o VIP respawn. Vais respawnar assim que morreres!"
+    }
+
+    "VIPRespawn_Desativado"
+    {
+        "en"			"{default}[ {darkred}SHT_VIP {default}] You have disabled your VIP respawn."
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] Desativas-te o VIP respawn."
+    }
+
+    "VIPSpawn_Respawn"
+    {
+        "en"			"{default}[ {darkred}SHT_VIP {default}] You used your {green}VIP Respawn{default}. {darkred}[0 left]"
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] Usas-te o teu {green}VIP Respawn{default}. {darkred}[0 restantes]"
+    }
+
+    "HUD_HabilidadeUsada"
+    {
+        "en"			"You have enabled your skill:"
+        "pt"			"Ativas-te a tua habilidade:"
+    }
+
+    "HUD_HabilidadeDesativada"
+    {
+        "en"			"You have disabled your skill:"
+        "pt"			"Desativas-te a tua habilidade:"
+    }
+
+    "GranadaWH_dada"
+    {
+        "en"			"{default}[ {darkred}SHT_VIP {default}] You have received your {darkred}WH Grenade{default}."
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] Recebes-te a tua {darkred}Granada de wallhack{default}."
+    }
+
+    "GranadaImpulso_dada"
+    {
+        "en"			"{default}[ {darkred}SHT_VIP {default}] You have received your {darkred}Jump Grenade{default}."
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] Recebes-te a tua {darkred}Granada de impulso{default}."
+    }
+
+    "GranadaTP_dada"
+    {
+        "en"			"{default}[ {darkred}SHT_VIP {default}] You have received your {darkred}TP Grenade{default}."
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] Recebes-te a tua {darkred}Granada de teleporte{default}."
+    }
+
+    "SeringaRegen_dada"
+    {
+        "en"			"{default}[ {darkred}SHT_VIP {default}] You have received your {darkred}Health Syringe{default}."
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] Recebes-te a tua {darkred}Seringa de vida{default}."
+    }    
+
+    "Nao_vivo"
+    {
+        "en"			"{default}[ {darkred}SHT_VIP {default}] You need to be alive to use this {green}command{default}!"
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] Precisas de estar vivo para usar este {green}comando{default}!"
+    }    
+    
+    "VIP_Saida"
+    {
+        "#format"       "{1:s}"
+        "en"			"{default}[ {darkred}SHT_VIP {default}] The VIP {blue}{1}{default} has {green}joined{default} the server!"
+        "pt"			"{default}[ {darkred}SHT_VIP {default}] O VIP {blue}{1}{default} entrou no servidor!"
+    }    
+}
