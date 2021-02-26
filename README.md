@@ -1,5 +1,5 @@
 # SHT-VIP
-A VIP plugin for CSGO plugins. It has a lot of functions, from displaying info about the VIP, VIP Skills to some minor options which can be disabled. [INITIALLY PLANNED TO BE PRIVATE!]
+A VIP plugin for CSGO servers. It has a lot of functions, from displaying info about the VIP, VIP Skills to some minor options which can be disabled. [INITIALLY PLANNED TO BE PRIVATE!]
 
 # TODO
 - ~~LIMIT PERK USAGE PER ROUND~~
