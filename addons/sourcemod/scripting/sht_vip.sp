@@ -131,9 +131,9 @@ public void OnPluginStart()
 	
 	// Bolachas
 	sht_viprespawn_ativo = RegClientCookie("vip_respawn", "VIP Respawn", CookieAccess_Private);
-	sht_usou_habilidades = RegClientCookie("usou_habilidades", "VIP Respawn", CookieAccess_Private);
-	sht_spawn_ativo = RegClientCookie("spawn_ativo", "VIP Respawn", CookieAccess_Private);
-	sht_deu_revive = RegClientCookie("deu_revive", "VIP Respawn", CookieAccess_Private);
+	sht_usou_habilidades = RegClientCookie("usou_habilidades", "Habilidade usada", CookieAccess_Private);
+	sht_spawn_ativo = RegClientCookie("spawn_ativo", "Spawn Ativo", CookieAccess_Private);
+	sht_deu_revive = RegClientCookie("deu_revive", "Deu revive", CookieAccess_Private);
 	
 	VIP_HUD = CreateHudSynchronizer(); 
 
@@ -170,7 +170,6 @@ public void OnPluginStart()
 	
 	// Configs
 	AutoExecConfig(true, "sht_vip", "sourcemod");
-	
 	
 	if(DB == null)
 		SQL_DBConnect();
