@@ -69,12 +69,11 @@ ConVar sht_vip_habilidade_seringaregeneracao;
 
 float scm_holdtime;
 
-bool sht_usou_menu[MAXPLAYERS] = false;
-bool sht_spawn_ativo[MAXPLAYERS] = false;
-bool sht_deu_revive[MAXPLAYERS+1] = false;
-
 Handle VIP_HUD;
 Handle sht_viprespawn_ativo;
+Handle sht_spawn_ativo;
+Handle sht_deu_revive;
+Handle sht_usou_habilidades;
 
 char ServerIP[64];
 
@@ -132,6 +131,9 @@ public void OnPluginStart()
 	
 	// Bolachas
 	sht_viprespawn_ativo = RegClientCookie("vip_respawn", "VIP Respawn", CookieAccess_Private);
+	sht_usou_habilidades = RegClientCookie("usou_habilidades", "VIP Respawn", CookieAccess_Private);
+	sht_spawn_ativo = RegClientCookie("spawn_ativo", "VIP Respawn", CookieAccess_Private);
+	sht_deu_revive = RegClientCookie("deu_revive", "VIP Respawn", CookieAccess_Private);
 	
 	VIP_HUD = CreateHudSynchronizer(); 
 
@@ -347,8 +349,8 @@ public Action InicioRonda(Event event, const char[] name, bool dontBroadcast)
 {
     for(int i = 1; i <= MaxClients; i++)
 	{
-		sht_deu_revive[i] = false;
-		sht_usou_menu[i] = false;
+		SetClientCookie(i, sht_deu_revive, "0");
+		SetClientCookie(i, sht_usou_habilidades, "0");
 		char flag[2];
 		GetConVarString(sht_vip_flag, flag, sizeof(flag));
 		int flag_vip = EMP_Flag_StringToInt(flag);
@@ -360,7 +362,6 @@ public Action InicioRonda(Event event, const char[] name, bool dontBroadcast)
 		}
     }
 }
-
 
 public Action MenuVIP_Comando(int client, int args) 
 {
@@ -396,7 +397,6 @@ public Action MenuVIP_Geral(int client, int args)
 	
 	return Plugin_Handled;
 }
-
 
 public Action MenuVIPInfo(int client, int args) 
 {
@@ -482,7 +482,6 @@ public int MenuVIPInfoHNDL(Menu MenuVIPmenu, MenuAction action, int client, int 
 
 public Menu MenuVIP_Menu(int client)
 {
-	sht_usou_menu[client] = true;
 	char traducao[256];
 	Menu MenuVIPmenu = new Menu(MenuVIPmenuHandler);
 	
@@ -514,33 +513,72 @@ public Menu MenuVIP_Menu(int client)
 	}
 	if(h_multijump == 1) 
 	{
-		Format(traducao, sizeof(traducao), "%t", "multijump");
-		MenuVIPmenu.AddItem("multijump", traducao);	
+		char bolacha[64];
+		GetClientCookie(client, sht_usou_habilidades, bolacha, sizeof(bolacha));
+		int bolachavalor = StringToInt(bolacha);
+		if(bolachavalor == 1) {
+			Format(traducao, sizeof(traducao), "%t", "multijump");
+			MenuVIPmenu.AddItem("multijump", traducao, ITEMDRAW_DISABLED);	
+		} else {
+			Format(traducao, sizeof(traducao), "%t", "multijump");
+			MenuVIPmenu.AddItem("multijump", traducao);	
+		}
 	} 
 	if(h_granadawallhack)
 	{
-		Format(traducao, sizeof(traducao), "%t", "granada_wallhack");
-		MenuVIPmenu.AddItem("granada_wallhack", traducao);
+		char bolacha[64];
+		GetClientCookie(client, sht_usou_habilidades, bolacha, sizeof(bolacha));
+		int bolachavalor = StringToInt(bolacha);
+		if(bolachavalor == 1) {
+			Format(traducao, sizeof(traducao), "%t", "granada_wallhack");
+			MenuVIPmenu.AddItem("granada_wallhack", traducao, ITEMDRAW_DISABLED);
+		} else {
+			Format(traducao, sizeof(traducao), "%t", "granada_wallhack");
+			MenuVIPmenu.AddItem("granada_wallhack", traducao);
+		}
 	}
 	if(h_granadaimpulsao == 1)
 	{
-		Format(traducao, sizeof(traducao), "%t", "granada_impulso");
-		MenuVIPmenu.AddItem("granada_impulso", traducao);
+		char bolacha[64];
+		GetClientCookie(client, sht_usou_habilidades, bolacha, sizeof(bolacha));
+		int bolachavalor = StringToInt(bolacha);
+		if(bolachavalor == 1) {
+			Format(traducao, sizeof(traducao), "%t", "granada_impulso");
+			MenuVIPmenu.AddItem("granada_impulso", traducao, ITEMDRAW_DISABLED);
+		} else {
+			Format(traducao, sizeof(traducao), "%t", "granada_impulso");
+			MenuVIPmenu.AddItem("granada_impulso", traducao);
+		}
 	}	
 	if(h_granadateleporte == 1)
 	{
-		Format(traducao, sizeof(traducao), "%t", "granada_teleport");
-		MenuVIPmenu.AddItem("granada_teleport", traducao);
+		char bolacha[64];
+		GetClientCookie(client, sht_usou_habilidades, bolacha, sizeof(bolacha));
+		int bolachavalor = StringToInt(bolacha);
+		if(bolachavalor == 1) {
+			Format(traducao, sizeof(traducao), "%t", "granada_teleport");
+			MenuVIPmenu.AddItem("granada_teleport", traducao, ITEMDRAW_DISABLED);
+		} else {
+			Format(traducao, sizeof(traducao), "%t", "granada_teleport");
+			MenuVIPmenu.AddItem("granada_teleport", traducao);
+		}
 	}	
 	if(h_seringaregeneracao == 1)
 	{
-		Format(traducao, sizeof(traducao), "%t", "seringa_regen");
-		MenuVIPmenu.AddItem("seringa_regen", traducao);
+		char bolacha[64];
+		GetClientCookie(client, sht_usou_habilidades, bolacha, sizeof(bolacha));
+		int bolachavalor = StringToInt(bolacha);
+		if(bolachavalor == 1) {
+			Format(traducao, sizeof(traducao), "%t", "seringa_regen");
+			MenuVIPmenu.AddItem("seringa_regen", traducao, ITEMDRAW_DISABLED);
+		} else {
+			Format(traducao, sizeof(traducao), "%t", "seringa_regen");
+			MenuVIPmenu.AddItem("seringa_regen", traducao);
+		}
 	}	
 	MenuVIPmenu.Display(client, 30);
 	return MenuVIPmenu;
 }
-
 
 public int MenuVIPmenuHandler(Menu MenuVIPmenu, MenuAction action, int client, int position)
 {
@@ -563,7 +601,6 @@ public int MenuVIPmenuHandler(Menu MenuVIPmenu, MenuAction action, int client, i
 				Format(traducao_hud, sizeof(traducao_hud), "%t VIP Respawn.", "HUD_HabilidadeUsada");
 				ShowSyncHudText(client, VIP_HUD, traducao_hud); 
 			}
-			sht_spawn_ativo[client] = true;
 			SetClientCookie(client, sht_viprespawn_ativo, "1");
 			PlaySound(client, RESPAWN);
 			delete MenuVIPmenu;
@@ -579,7 +616,6 @@ public int MenuVIPmenuHandler(Menu MenuVIPmenu, MenuAction action, int client, i
 				Format(traducao_hud, sizeof(traducao_hud), "%t %t", "HUD_HabilidadeDesativada", "s_viprespawn");
 				ShowSyncHudText(client, VIP_HUD, traducao_hud); 
 			}
-			sht_spawn_ativo[client] = false;
 			SetClientCookie(client, sht_viprespawn_ativo, "0");
 			char bolacha[64];
 			GetClientCookie(client, sht_viprespawn_ativo, bolacha, sizeof(bolacha));
@@ -590,12 +626,14 @@ public int MenuVIPmenuHandler(Menu MenuVIPmenu, MenuAction action, int client, i
 		if(StrEqual(item, "multijump")) 
 		{
 			FakeClientCommand(client, "multijump");
+			SetClientCookie(client, sht_usou_habilidades, "1");
 			delete MenuVIPmenu;
 		} 
 		if(StrEqual(item, "granada_wallhack")) 
 		{
 			Format(traducao, sizeof(traducao), "%t", "GranadaWH_dada");
 			GivePlayerItem(client, "weapon_tagrenade");
+			SetClientCookie(client, sht_usou_habilidades, "1");
 			if(chat_ativo == 1) {
 				CPrintToChat(client, traducao);
 			}
@@ -608,6 +646,7 @@ public int MenuVIPmenuHandler(Menu MenuVIPmenu, MenuAction action, int client, i
 		if(StrEqual(item, "granada_impulso")) 
 		{
 			Format(traducao, sizeof(traducao), "%t", "GranadaImpulso_dada");
+			SetClientCookie(client, sht_usou_habilidades, "1");
 			if(chat_ativo == 1) {
 				CPrintToChat(client, traducao);
 			}
@@ -621,6 +660,7 @@ public int MenuVIPmenuHandler(Menu MenuVIPmenu, MenuAction action, int client, i
 		if(StrEqual(item, "granada_teleport")) 
 		{
 			Format(traducao, sizeof(traducao), "%t", "GranadaTP_dada");
+			SetClientCookie(client, sht_usou_habilidades, "1");
 			if(chat_ativo == 1) {
 				CPrintToChat(client, traducao);
 			}
@@ -634,6 +674,7 @@ public int MenuVIPmenuHandler(Menu MenuVIPmenu, MenuAction action, int client, i
 		if(StrEqual(item, "seringa_regen")) 
 		{
 			Format(traducao, sizeof(traducao), "%t", "SeringaRegen_dada");
+			SetClientCookie(client, sht_usou_habilidades, "1");
 			if(chat_ativo == 1) {
 				CPrintToChat(client, traducao);
 			}
@@ -694,10 +735,13 @@ public int MenuVIP_InformacoesHandler(Menu MenuVIPmenu_Infor, MenuAction action,
 public Action MorteVIP(Event event, const char[] name, bool dontBroadcast)
 {
 	int client = GetClientOfUserId(GetEventInt(event, "userid"));
-	if(sht_spawn_ativo[client] == true) {
+	char bolacha[64];
+	GetClientCookie(client, sht_viprespawn_ativo, bolacha, sizeof(bolacha));
+	int bolachavalor = StringToInt(bolacha);
+	if(bolachavalor == 1) {
 		CreateTimer(2.0, Respawn_Player, client);
-		sht_spawn_ativo[client] = false;
-		sht_deu_revive[client] = true;
+		SetClientCookie(client, sht_spawn_ativo, "0");
+		SetClientCookie(client, sht_deu_revive, "1");
 	}
 }
 
