@@ -10,17 +10,6 @@
  * =============================================================================
  */
  
-/*TODO
-
-- FAZER LIMITE DE SKILLS POR RONDA
-- FAZER LIMITE DE RESPAWN
-- DAR FIX AO RESPAWN
-- FAZER MULTI JUMP
-- FAZER INFORMAÇÕES
-- FAZER DEFINIÇÕES
-
-*/
- 
 // INCLUDES
 #include <sourcemod>
 #include <cstrike>
@@ -90,6 +79,8 @@ Handle sht_viprespawn_ativo;
 char ServerIP[64];
 
 HTTPClient httpClient;
+
+Database DB = null;
 
 public Plugin myinfo = 
 {
@@ -177,6 +168,10 @@ public void OnPluginStart()
 	
 	// Configs
 	AutoExecConfig(true, "sht_vip", "sourcemod");
+	
+	
+	if(DB == null)
+		SQL_DBConnect();
 }
 
 public void OnConfigsExecuted()
@@ -198,6 +193,9 @@ public void OnConfigsExecuted()
 	
 	Handle request = CreateRequest_RequestIp();
 	SteamWorks_SendHTTPRequest(request);
+
+	if(DB == null)
+		SQL_DBConnect();
 }
 
 public void OnClientPostAdminCheck(int client)
@@ -206,6 +204,107 @@ public void OnClientPostAdminCheck(int client)
 	if(mensagem_entrada == 1) {
 		MensagemDeEntrada(client);	
 	}
+
+	if (IsValidClient(client))
+    {
+        char steamid[32], query[1024];
+        GetClientAuthId(client, AuthId_Steam2, steamid, sizeof(steamid));
+        
+        DB.Format(query, sizeof(query), "SELECT nome FROM sht_players WHERE steamid = '%s';", steamid);
+        DB.Query(CheckPlayer_Callback, query, GetClientSerial(client));
+    }
+}
+
+
+public void CheckPlayer_Callback(Database db, DBResultSet result, char[] error, any data)
+{
+	if(result == null)
+	{
+		LogError("[SHT VIP] Query Fail: %s", error);
+		return;
+	}
+
+	int id = GetClientFromSerial(data);
+
+	if(!id)
+		return;
+		
+	while(result.FetchRow())
+	{
+		updateName(id);
+		return;
+	}
+	
+	char userName[MAX_NAME_LENGTH], steamid[32], ip[32];
+	GetClientName(id, userName, sizeof(userName));
+	GetClientAuthId(id, AuthId_Steam2, steamid, sizeof(steamid));
+	GetClientIP(id, ip, sizeof(ip));
+	
+	int len = strlen(userName) * 2 + 1;
+	char[] escapedName = new char[len];
+	DB.Escape(userName, escapedName, len);
+
+	len = strlen(steamid) * 2 + 1;
+	char[] escapedSteamId = new char[len];
+	DB.Escape(steamid, escapedSteamId, len);
+	
+	char query[512], time[32];
+	FormatTime(time, sizeof(time), "%d-%m-%Y", GetTime());
+	Format(query, sizeof(query), "INSERT INTO `sht_players` (nome, steamid, ip, datadeentrada, ultima_conexao) VALUES ('%s', '%s', '%s', '%s', '%s') ON DUPLICATE KEY UPDATE nome = '%s';", escapedName, escapedSteamId, ip, time, time, escapedName);
+	DB.Query(Nothing_Callback, query, id);
+}
+
+void updateName(int client)
+{
+	char userName[MAX_NAME_LENGTH], steamid[32];
+	GetClientName(client, userName, sizeof(userName));
+	GetClientAuthId(client, AuthId_Steam2, steamid, sizeof(steamid));
+	
+	int len = strlen(userName) * 2 + 1;
+	char[] escapedName = new char[len];
+	DB.Escape(userName, escapedName, len);
+
+	len = strlen(steamid) * 2 + 1;
+	char[] escapedSteamId = new char[len];
+	DB.Escape(steamid, escapedSteamId, len);
+
+	char query[128], time[32];
+	FormatTime(time, sizeof(time), "%d-%m-%Y", GetTime());
+	FormatEx(query, sizeof(query), "UPDATE `sht_players` SET nome = '%s', ultima_conexao = '%s' WHERE steamid = '%s';", escapedName, time, escapedSteamId);
+	DB.Query(Nothing_Callback, query, client);
+}
+
+void SQL_DBConnect()
+{
+	if(DB != null)
+		delete DB;
+		
+	if(SQL_CheckConfig("sht_vip"))
+	{
+		Database.Connect(SQLConnection_Callback, "sht_vip");
+	}
+	else
+	{
+		LogError("[SHT VIP] Error: %s", "\"sht_players\" isn't specified in databases.cfg'");
+	}
+}
+
+
+public void SQLConnection_Callback(Database db, char[] error, any data)
+{
+	if(db == null)
+	{
+		LogError("[SHT VIP] Can't connect to server. Error: %s", error);
+		return;
+	}		
+	DB = db;
+	DB.Query(Nothing_Callback, "CREATE TABLE IF NOT EXISTS `sht_players` (`id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,`nome` varchar(64) NOT NULL,`steamid` varchar(32) NOT NULL,`ip` varchar(32) NOT NULL,`datadeentrada` varchar(32) NOT NULL,`ultima_conexao` varchar(32) NOT NULL) ENGINE = MyISAM DEFAULT CHARSET = utf8;", DBPrio_High);
+}
+
+public void Nothing_Callback(Database db, DBResultSet result, char[] error, any data)
+{
+	if(result == null)
+		LogError("[SHT VIP] Error: %s", error);
 }
 
 void MensagemDeEntrada(int client)
