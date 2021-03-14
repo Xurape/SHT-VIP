@@ -80,6 +80,18 @@
         "pt"			"⮞ Seringa de regeneração"
     }
 
+    "sons_enabled"
+    {
+        "en"            	"⮞ Sounds [X]"
+        "pt"            	"⮞ Sons [X]"
+    }
+
+    "sons_disabled"
+    {
+        "en"            	"⮞ Sounds [ ]"
+        "pt"            	"⮞ Sons [ ]"
+    }
+
     // INFO
     
     "menuvip_titulo_informacoes"
