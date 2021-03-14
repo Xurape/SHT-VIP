@@ -5,5 +5,4 @@ A VIP plugin for CSGO servers. It has a lot of functions, from displaying info a
 - ~~LIMIT PERK USAGE PER ROUND~~
 - ~~LIMIT RESPAWN~~
 - FIX VIP RESPAWN
-- MAKE MULTIJUMP
-- MAKE OPTIONS MENU
+- ~~MAKE SETTINGS MENU~~
