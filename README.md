@@ -32,6 +32,8 @@
 3. Drop all the content inside the latest's release file on your server.
 4. All done and ready to go.
 
+**NOTE**: Plugin was made only to work with MySQL, I don't know if sqlite is supported here tho
+
 # Cvars
 
 * sm_sht_abrirmenuronda-> "1" - "1 - Opens Menu every round for VIP players when enabled. 0 - Do not open any menu."
